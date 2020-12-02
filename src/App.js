@@ -1,24 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
-
+import React from 'react';
+import Navbar from './Component/Navbar';
+import Section from './Component/Section';
 function App() {
+  const menu = {
+    about:'About',
+    experience:'Experience',
+    education:'Education',
+    skills:'Skills',
+    projects:'Projects'
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <React.Fragment>
+      <header>
+        <Navbar data={menu} title='AshariFauzan'/>
       </header>
-    </div>
+      <main>
+        <Section title={menu}/>
+      </main>
+    </React.Fragment>
   );
 }
 
