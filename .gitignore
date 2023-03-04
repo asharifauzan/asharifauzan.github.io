@@ -13,6 +13,7 @@ src/Component/sass/*.scss.map
 
 # testing
 /coverage
+junit.xml
 
 # production
 /build
