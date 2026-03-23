@@ -41,7 +41,7 @@ export default function SocialDock() {
   ];
 
   return (
-    <div className="relative mt-48">
+    <div className="relative lg:mt-48">
       <Dock direction="top" iconSize={40}>
         {data.map(({ label, icon, url }) => (
           <DockIcon key={label}>

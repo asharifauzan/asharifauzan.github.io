@@ -1,12 +1,12 @@
-import React from "react";
-import SkillSection from "../sections/Skill";
-import EducationSection from "../sections/Education";
+import React, { type PropsWithChildren } from "react";
 
-export default function SidebarComponent({ className }: { className: string }) {
+export default function SidebarComponent({
+  className,
+  children,
+}: PropsWithChildren<{ className: string }>) {
   return (
     <aside className={`${className} `}>
-      <SkillSection />
-      <EducationSection />
+      {children}
     </aside>
   );
 }
