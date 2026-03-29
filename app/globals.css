@@ -128,15 +128,15 @@ body {
 }
 
 .section-title {
-  @apply mb-1.5 font-extrabold text-2xl;
+  @apply mb-1.5 font-extrabold text-xl;
 }
 
 .subsection-title {
-  @apply mb-1 font-bold text-xl;
+  @apply mb-1 font-semibold text-lg;
 }
 
 .article-title {
-  @apply mb-0.5 font-semibold text-lg text-neutral-300;
+  @apply mb-0.5 font-semibold text-base text-neutral-300;
 }
 
 .subarticle-title {
