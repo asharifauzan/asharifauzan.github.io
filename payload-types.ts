@@ -67,6 +67,11 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    educations: Education;
+    experiences: Experience;
+    projects: Project;
+    skills: Skill;
+    skillsets: Skillset;
     'payload-kv': PayloadKv;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
@@ -75,6 +80,11 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
+    educations: EducationsSelect<false> | EducationsSelect<true>;
+    experiences: ExperiencesSelect<false> | ExperiencesSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    skills: SkillsSelect<false> | SkillsSelect<true>;
+    skillsets: SkillsetsSelect<false> | SkillsetsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -85,8 +95,14 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    about: About;
+    social: Social;
+  };
+  globalsSelect: {
+    about: AboutSelect<false> | AboutSelect<true>;
+    social: SocialSelect<false> | SocialSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -114,6 +130,67 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "educations".
+ */
+export interface Education {
+  id: number;
+  institutionName?: string | null;
+  major?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "experiences".
+ */
+export interface Experience {
+  id: number;
+  company?: string | null;
+  position?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  projectName?: string | null;
+  description?: string | null;
+  cover?: string | null;
+  url?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skills".
+ */
+export interface Skill {
+  id: number;
+  skills?: (number | null) | Skillset;
+  skillName?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skillsets".
+ */
+export interface Skillset {
+  id: number;
+  skillsetName?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -163,10 +240,31 @@ export interface User {
  */
 export interface PayloadLockedDocument {
   id: number;
-  document?: {
-    relationTo: 'users';
-    value: number | User;
-  } | null;
+  document?:
+    | ({
+        relationTo: 'educations';
+        value: number | Education;
+      } | null)
+    | ({
+        relationTo: 'experiences';
+        value: number | Experience;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'skills';
+        value: number | Skill;
+      } | null)
+    | ({
+        relationTo: 'skillsets';
+        value: number | Skillset;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
+      } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
@@ -208,6 +306,62 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "educations_select".
+ */
+export interface EducationsSelect<T extends boolean = true> {
+  institutionName?: T;
+  major?: T;
+  startDate?: T;
+  endDate?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "experiences_select".
+ */
+export interface ExperiencesSelect<T extends boolean = true> {
+  company?: T;
+  position?: T;
+  startDate?: T;
+  endDate?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  projectName?: T;
+  description?: T;
+  cover?: T;
+  url?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skills_select".
+ */
+export interface SkillsSelect<T extends boolean = true> {
+  skills?: T;
+  skillName?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skillsets_select".
+ */
+export interface SkillsetsSelect<T extends boolean = true> {
+  skillsetName?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -270,6 +424,75 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: number;
+  fullname: string;
+  description: string;
+  highlightedSkills: {
+    skill: string;
+    id?: string | null;
+  }[];
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "social".
+ */
+export interface Social {
+  id: number;
+  socialLinks?:
+    | {
+        label?: string | null;
+        /**
+         * See available icons: https://react-social-icons.com
+         */
+        icon?: string | null;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  fullname?: T;
+  description?: T;
+  highlightedSkills?:
+    | T
+    | {
+        skill?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "social_select".
+ */
+export interface SocialSelect<T extends boolean = true> {
+  socialLinks?:
+    | T
+    | {
+        label?: T;
+        icon?: T;
+        url?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -1,72 +1,34 @@
 import React from "react";
+import { getPayload } from "payload";
+import config from "@payload-config";
+import type { Skillset } from "@/payload-types";
 
-type SkillType = {
-  name: string;
-  setSkill: string[];
-};
+export default async function SkillSection() {
+  const payload = await getPayload({ config })
+  const { docs: skills } = await payload.find({
+    collection: "skills",
+    limit: 1000
+  })
 
-export default function SkillSection() {
-  const data: SkillType[] = [
-    {
-      name: "Languages & Frameworks",
-      setSkill: [
-        "Javascript",
-        "Typescript",
-        "React",
-        "Nextjs",
-        "Gatsby",
-        "Vuejs",
-      ],
-    },
-    { name: "State Management", setSkill: ["Redux", "Context API", "Zustand"] },
-    {
-      name: "UI Libraries",
-      setSkill: ["Tailwind", "Material UI", "Bootstrap"],
-    },
-    {
-      name: "Testing",
-      setSkill: ["Jest", "React Testing Library", "Vitest", "Puppeteer"],
-    },
-    { name: "Build Tools", setSkill: ["Vite", "Webpack", "Parcel"] },
-    { name: "Deployment", setSkill: ["Docker", "Bash Shell"] },
-    {
-      name: "Version Control",
-      setSkill: [
-        "Git",
-        "Github",
-        "Gitlab",
-        "Bitbucket",
-        "Mercurial",
-        "NPM",
-        "Gitlab Runner",
-        "Jenkins",
-      ],
-    },
-    {
-      name: "Backend & Database",
-      setSkill: [
-        "Nodejs",
-        "Express",
-        "Graphql",
-        "Rest API",
-        "Mysql",
-        "Postgresql",
-      ],
-    },
-    {
-      name: "Desktop & Mobile",
-      setSkill: ["Electron", "GJs", "React Native", "Flutter"],
-    },
-  ];
+  // TODO: needs refactor
+  const reducedSkills = skills.reduce((acc: Record<string, string[]>, curr) => {
+    const skill = curr.skills as Skillset
+    if (skill.skillsetName) {
+      acc[skill.skillsetName] = [...(acc[skill.skillsetName] || []), curr.skillName] as string[]
+    }
+    return acc
+  }, {})
 
+  const data = Object.entries(reducedSkills)
+  
   return (
     <section id="skills" className="mb-6">
-      <h3 className="subsection-title">Skills 🛠️</h3>
+      <h3 className="section-title">Skills 🛠️</h3>
       <div className="-mx-2.5 p-2.5 space-y-2">
-        {data.map((row) => (
-          <div key={row.name} className="skill-item">
-            <h4 className="article-title">{row.name}</h4>
-            <p className="text-description">{row.setSkill.join(", ")}</p>
+        {data.map(([key, row]) => (
+          <div key={key} className="skill-item">
+            <h4 className="article-title">{key}</h4>
+            <p className="text-description">{row.join(", ")}</p>
           </div>
         ))}
       </div>

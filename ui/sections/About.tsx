@@ -6,17 +6,17 @@ import { WordRotate } from "@/components/magicui/word-rotate";
 import { motion } from "motion/react";
 import ParticlesBackground from "../components/ParticlesBackground";
 import SocialsDock from "../components/SocialDock";
+import type { About, Social } from "@/payload-types";
 
-export default function AboutSection() {
-  const professions: string[] = [
-    "Frontend Developer",
-    "Reactjs",
-    "Nextjs",
-    "Vuejs",
-    "React Native",
-    "Flutter",
-    "Lifetime learner",
-  ];
+interface Props {
+  bio: About
+  socials: Social["socialLinks"]
+}
+
+export default function AboutSection({ bio, socials }: Props) {
+  // destruct to flat string of array
+  const highlightedSkills: string[] = bio?.highlightedSkills
+    ?.map(({ skill }) => skill) || []
 
   const colors: string[] = [
     "#43d4e4",
@@ -44,11 +44,11 @@ export default function AboutSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Fauzan Hibatullah Ashari
+          {bio?.fullname}
         </AuroraMotion>
         <WordRotate
           className="mb-8 text-4xl lg:text-8xl opacity-50 text-slate-300"
-          words={professions}
+          words={highlightedSkills}
         />
         <motion.p
           className="lg:text-lg text-slate-400"
@@ -56,11 +56,9 @@ export default function AboutSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          4+ years experienced Frontend Developer specialized in web
-          application (React/Nextjs/Vuejs) and mobile application (React
-          Native/Flutter).
+          {bio?.description}
         </motion.p>
-        <SocialsDock />
+        <SocialsDock links={socials || []} />
       </div>
     </ParticlesBackground>
   );

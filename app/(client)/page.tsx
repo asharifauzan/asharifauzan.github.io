@@ -1,6 +1,6 @@
 import React from "react";
 
-import AboutSection from "@/ui/sections/About";
+import AboutServerSection from "@/ui/sections/About.server";
 import EducationSection from "@/ui/sections/Education";
 import ExperienceSection from "@/ui/sections/Experience";
 import ProjectsSection from "@/ui/sections/Project";
@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <>
       <header>
-        <AboutSection />
+        <AboutServerSection />
       </header>
       <main className="relative">
         {/* Absolute gradient background */}

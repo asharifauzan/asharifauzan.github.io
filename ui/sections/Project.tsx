@@ -1,38 +1,15 @@
 import React from "react";
 import RowCard from "../components/RowCard";
 import Link from "next/link";
-import { Url } from "next/dist/shared/lib/router/router";
+import { getPayload } from "payload";
+import config from "@payload-config"
+import type { Url } from "next/dist/shared/lib/router/router";
 
-type ProjectType = {
-  thumbnail?: string;
-  name: string;
-  description?: string;
-  url?: Url;
-};
-
-export default function ProjectSection() {
-  const data: ProjectType[] = [
-    {
-      name: "autofit-canvas (npm library)",
-      description:
-        "NPM package to fit image dimension into canvas defined dimension without chaning image aspect ratio",
-      thumbnail: "/assets/images/projects/autofit-canvas.png",
-      url: "https://www.npmjs.com/package/autofit-canvas",
-    },
-    {
-      name: "React WPM Counter",
-      description: "React application to calculate user’s typing speed",
-      thumbnail: "/assets/images/projects/react-wpm-counter.png",
-      url: "https://asharifauzan.github.io/react-wpm-counter",
-    },
-    {
-      name: "React Math Quiz",
-      description:
-        "Simple React math quiz application to choose correct answers in 30 seconds",
-      thumbnail: "/assets/images/projects/react-math-quiz.png",
-      url: "https://gitlab.com/asharifauzan/react-math-quiz",
-    },
-  ];
+export default async function ProjectSection() {
+  const payload = await getPayload({ config })
+  const { docs: data } = await payload.find({
+    collection: "projects"
+  })
 
   return (
     <section id="projects" className="space-y-2">
@@ -40,11 +17,11 @@ export default function ProjectSection() {
       <div className="space-y-5">
         {data.map((row) => (
           <article
-            key={row.name}
+            key={row.id}
             className="project-item row-hover-focus -mx-2.5 p-2.5"
           >
-            <RowCard thumbnail={row.thumbnail}>
-              <p className="subsection-title">{row.name}</p>
+            <RowCard thumbnail={row.cover ?? ""}>
+              <p className="subsection-title">{row.projectName}</p>
               <p className="text-description">{row.description}</p>
               <Link
                 className="text-blue-600 hover:text-blue-700"
