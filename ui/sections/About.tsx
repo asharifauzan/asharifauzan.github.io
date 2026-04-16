@@ -33,13 +33,13 @@ export default function AboutSection({ bio, socials }: Props) {
 
   return (
     <ParticlesBackground>
-      <div className="container w-11/12 lg:max-w-8/12 mx-auto px-2 lg:px-8 py-8 lg:pt-24 lg:pb-4">
+      <div className="w-11/12 xl:max-w-8/12 mx-auto px-2 lg:px-8 py-8 lg:pt-24 lg:pb-4">
         <p className="mb-8 font-bold text-2xl lg:text-4xl">
           Hi <span className="inline-block animate-wave">👋</span> my name is
         </p>
         <AuroraMotion
           colors={colors}
-          className="font-bold text-6xl lg:text-8xl"
+          className="font-bold text-6xl xl:text-8xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -47,11 +47,11 @@ export default function AboutSection({ bio, socials }: Props) {
           {bio?.fullname}
         </AuroraMotion>
         <WordRotate
-          className="mb-8 text-4xl lg:text-8xl opacity-50 text-slate-300"
+          className="mb-8 text-4xl xl:text-8xl opacity-50 text-slate-300"
           words={highlightedSkills}
         />
         <motion.p
-          className="lg:text-lg text-slate-400"
+          className="xl:text-lg text-slate-400"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}

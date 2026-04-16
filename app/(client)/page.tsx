@@ -20,7 +20,7 @@ export default function HomePage() {
         {/* Absolute gradient background */}
         <GradientBackground />
 
-        <div className="flex flex-col md:flex-row gap-8 w-11/12 lg:w-8/12 mx-auto p-2 lg:p-8">
+        <div className="flex flex-col md:flex-row gap-8 w-11/12 xl:w-8/12 mx-auto p-2 lg:p-8">
           {/* Sidebar */}
           <div className="relative flex-2/6">
             <SidebarComponent className="sticky top-10">
