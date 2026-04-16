@@ -20,7 +20,10 @@ export default async function ProjectSection() {
             key={row.id}
             className="project-item row-hover-focus -mx-2.5 p-2.5"
           >
-            <RowCard thumbnail={row.cover ?? ""}>
+            <RowCard
+              className="flex-col sm:flex-row"
+              thumbnail={row.cover ?? ""}
+            >
               <p className="subsection-title">{row.projectName}</p>
               <p className="text-description">{row.description}</p>
               <Link
