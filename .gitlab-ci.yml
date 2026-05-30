@@ -42,4 +42,5 @@ deploy-job:      # This job runs in the deploy stage.
     - echo "=== building docker image ==="
     - docker build -t registry.gitlab.com/asharifauzan/asharifauzan.github.io:latest .
     - echo "=== deploying docker image to container registry ==="
+    - docker login registry.gitlab.com --username ${CI_GITLAB_USER} --password ${CI_GITLAB_TOKEN}
     - docker push registry.gitlab.com/asharifauzan/asharifauzan.github.io:latest
