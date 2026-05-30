@@ -31,6 +31,11 @@ build-job:       # This job runs in the build stage, which runs first.
 
 deploy-job:      # This job runs in the deploy stage.
   image: docker:29.5.2 # High-level image containing the Docker CLI
+  services:
+    - docker:29.5.2-dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   environment: production
   script:
