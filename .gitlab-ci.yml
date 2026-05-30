@@ -43,7 +43,13 @@ deploy-job:      # This job runs in the deploy stage.
   environment: production
   script:
     - echo "=== building docker image ==="
-    - docker build -t registry.gitlab.com/asharifauzan/asharifauzan.github.io:latest .
+    - |
+      docker build \
+      --build-arg DATABASE_URL=${DATABASE_URL} \
+      --build-arg PAYLOAD_SECRET=${PAYLOAD_SECRET} \
+      --build-arg PAYLOAD_ADMIN_EMAIL=${PAYLOAD_ADMIN_EMAIL} \
+      --build-arg PAYLOAD_ADMIN_PASSWORD=${PAYLOAD_ADMIN_PASSWORD}  \
+      -t registry.gitlab.com/asharifauzan/asharifauzan.github.io:latest .
     - echo "=== deploying docker image to container registry ==="
     - docker login registry.gitlab.com --username ${CI_GITLAB_USER} --password ${CI_GITLAB_TOKEN}
     - docker push registry.gitlab.com/asharifauzan/asharifauzan.github.io:latest
