@@ -13,7 +13,7 @@ import GradientBackground from "@/ui/components/GradientBackground";
 export default function HomePage() {
   return (
     <>
-      <header>
+      <header className="sticky top-1">
         <AboutServerSection />
       </header>
       <main className="relative">
